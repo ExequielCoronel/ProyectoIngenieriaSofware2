@@ -17,6 +17,7 @@
 - Implementar pruebas unitarias utilizando xUnit.
 - Aplicar principios de diseño SOLID y refactorización continua.
 - Documentar el avance progresivo mediante un historial de commits semánticos en Git.
+- Uso de tests doubles, fixtures, manejo de Setup y Teardown para la organización
 
 #### Alcance del trabajo: 
 El proyecto se limitará al desarrollo de una biblioteca de clases (Class Library) que encapsule la lógica de negocio de un "Carrito de Compras". No se incluirá una interfaz gráfica ni una base de datos, se mantendra el foco en la lógica y las pruebas unitarias. 
