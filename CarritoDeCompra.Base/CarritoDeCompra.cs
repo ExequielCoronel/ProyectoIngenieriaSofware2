@@ -1,6 +1,6 @@
 ﻿namespace CarritoDeCompra.Base;
 
-public class Class1
+public class CarritoDeCompra
 {
 
 }
