@@ -1,0 +1,29 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+# --- Visual Studio ---
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.opendb
+*.db
+
+# --- NuGet ---
+packages/
+*.nuget.props
+*.nuget.targets
+
+# --- Archivos temporales y Logs ---
+*.log
+*.cache
+*.tmp
+*.bak
