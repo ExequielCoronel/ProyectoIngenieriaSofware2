@@ -2,11 +2,13 @@
 using CarritoDeCompra.Base.Models;
 public class Carrito
 {
-    //tener cuidado porque pueden salir requerimientos futuros, ej lista de solo lectura
-    public List<Producto> Items { get; } = new List<Producto>();
+    
+    //public List<Producto> Items { get; } = new List<Producto>();
+    private readonly List<Producto> _items = new();
+    public IReadOnlyList<Producto> Items => _items.AsReadOnly();
     public void AgregarItem(Producto producto)
     {
-        Items.Add(producto);
+        _items.Add(producto);
     }
 
 }
