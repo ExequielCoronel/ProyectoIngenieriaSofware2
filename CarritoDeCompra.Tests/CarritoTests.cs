@@ -14,4 +14,14 @@ public class UnitTest1
         Assert.Single(carrito.Items);
         Assert.Equal("Manzana", carrito.Items[0].Nombre);
     }
+
+    [Fact]
+    public void Subtotal_DeberiaSumarPrecioItems()
+    {
+        var carrito = new Carrito();
+        carrito.AgregarItem(new Producto("A001", "Manzana", 100m));
+        carrito.AgregarItem(new Producto("B001", "Pan", 50m));
+
+        Assert.Equal(150m, carrito.Subtotal); // Esto fallará, Subtotal no existe o es 0
+}    
 }
