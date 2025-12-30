@@ -11,4 +11,6 @@ public class Carrito
         _items.Add(producto);
     }
 
+    public decimal Subtotal => _items.Sum(p => p.Precio);
+
 }
