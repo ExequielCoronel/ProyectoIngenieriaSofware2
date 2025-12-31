@@ -1,27 +1,39 @@
 ﻿namespace CarritoDeCompra.Tests;
 using CarritoDeCompra.Base;
 using CarritoDeCompra.Base.Models;
+using CarritoDeCompra.Tests.Fixtures;
 
-public class UnitTest1
+public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
 {
+
+    private readonly ProductoFixture _fixture;
+    private Carrito _carritoTest;
+
+    public CarritoTests(ProductoFixture fixture)
+    {
+        _fixture = fixture;
+        _carritoTest = new Carrito(); 
+    }
+
+    //Teardown mediante Dispose
+    public void Dispose()
+    {
+        _carritoTest= null;
+    }
+
     [Fact]
     public void AgregarItem_DeberiaAgregar()
     {
-        var carrito=new Carrito();
-        var producto = new Producto("A001", "Manzana", 100m);
-
-        carrito.AgregarItem(producto);
-        Assert.Single(carrito.Items);
-        Assert.Equal("Manzana", carrito.Items[0].Nombre);
+        _carritoTest.AgregarItem(_fixture.Manzana);
+        Assert.Single(_carritoTest.Items);
+        Assert.Equal("Manzana", _carritoTest.Items[0].Nombre);
     }
 
     [Fact]
     public void Subtotal_DeberiaSumarPrecioItems()
     {
-        var carrito = new Carrito();
-        carrito.AgregarItem(new Producto("A001", "Manzana", 100m));
-        carrito.AgregarItem(new Producto("B001", "Pan", 50m));
-
-        Assert.Equal(150m, carrito.Subtotal); // Esto fallará, Subtotal no existe o es 0
+        _carritoTest.AgregarItem(_fixture.Manzana);
+        _carritoTest.AgregarItem(_fixture.Pan);
+        Assert.Equal(150m, _carritoTest.Subtotal);
 }    
 }
