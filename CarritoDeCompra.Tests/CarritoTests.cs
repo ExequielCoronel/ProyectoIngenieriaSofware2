@@ -26,7 +26,7 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
     {
         _carritoTest.AgregarItem(_fixture.Manzana);
         Assert.Single(_carritoTest.Items);
-        Assert.Equal("Manzana", _carritoTest.Items[0].Nombre);
+        Assert.Equal("Manzana", _carritoTest.Items[0].Product.Nombre);
     }
 
     [Fact]
