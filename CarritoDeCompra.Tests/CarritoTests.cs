@@ -36,4 +36,16 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
         _carritoTest.AgregarItem(_fixture.Pan);
         Assert.Equal(150m, _carritoTest.Subtotal);
 }    
+
+
+    [Fact]
+    public void AgregarItem_ProductoExistente_DeberiaIncrementarCantidad()
+    {
+        // Usando el Fixture
+        _carritoTest.AgregarItem(_fixture.Manzana);
+        _carritoTest.AgregarItem(_fixture.Manzana);
+
+        Assert.Single(_carritoTest.Items);
+        Assert.Equal(2, _carritoTest.Items[0].Cantidad); // carrito no tiene un campo que permita saber la cantidad, deberia tirar error de compilacion en red
+}
 }
