@@ -47,5 +47,13 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
 
         Assert.Single(_carritoTest.Items);
         Assert.Equal(2, _carritoTest.Items[0].Cantidad); // carrito no tiene un campo que permita saber la cantidad, deberia tirar error de compilacion en red
-}
+    }
+
+    [Fact]
+    public void EliminarItem_DeberiaEliminarItem()
+    {
+        _carritoTest.AgregarItem(_fixture.Manzana);
+        _carritoTest.EliminarItem(_fixture.Manzana.Codigo); // Método no existe
+        Assert.Empty(_carritoTest.Items);
+    }
 }
