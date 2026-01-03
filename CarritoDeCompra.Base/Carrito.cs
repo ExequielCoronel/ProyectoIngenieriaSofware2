@@ -16,7 +16,7 @@ public class Carrito
         _servicioImpuesto = servicioImpuesto;
     }
     public IReadOnlyList<CarritoItem> Items => _items.AsReadOnly();
-public void AgregarItem(Producto product, int cantidad = 1)
+    public void AgregarItem(Producto product, int cantidad = 1)
     {
         var itemExistente = _items.FirstOrDefault(i => i.Product.Codigo == product.Codigo);
         if (itemExistente != null)

@@ -72,4 +72,14 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
         Assert.Equal(110m, Carrito.CalcularTotalFinal()); // Método no existe
     }
 
+    [Fact]
+    public void CalcularTotal_DeberiaAplicarDescuento()
+    {
+        var descuentoMock = new ServicioDescuentoMock(50m); // Descuenta 50
+        var cart = new Carrito(null, descuentoMock); // Constructor necesita update
+        cart.AgregarItem(_fixture.Manzana); // Vale 100
+        //aplicando descuento deberia devolver 100 - 50 = 50
+        Assert.Equal(50m, cart.CalcularTotalFinal());
+    }
+
 }
