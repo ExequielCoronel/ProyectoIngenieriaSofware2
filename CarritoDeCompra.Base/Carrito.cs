@@ -41,4 +41,14 @@ public void AgregarItem(Producto product, int cantidad = 1)
             _items.Remove(itemExistente);
         }
     }
+    public decimal CalcularTotalFinal()
+    {
+        decimal subtotal = Subtotal;
+        decimal impuesto = 0;
+
+        if (_servicioImpuesto != null)
+            impuesto = _servicioImpuesto.CalcularImpuesto(subtotal);
+
+        return subtotal + impuesto;
+    }
 }
