@@ -11,10 +11,13 @@ public class Carrito
     //public List<Producto> Items { get; } = new List<Producto>();
     private readonly List<CarritoItem> _items = new();
     private readonly IServiciosImpuestos? _servicioImpuesto;
-    public Carrito(IServiciosImpuestos? servicioImpuesto = null)
+    private readonly IServiciosDescuentos? _servicioDescuento;
+    public Carrito(IServiciosImpuestos? servicioImpuesto = null, IServiciosDescuentos? servicioDescuento = null)
     {
         _servicioImpuesto = servicioImpuesto;
+        _servicioDescuento = servicioDescuento;
     }
+
     public IReadOnlyList<CarritoItem> Items => _items.AsReadOnly();
     public void AgregarItem(Producto product, int cantidad = 1)
     {
@@ -45,10 +48,14 @@ public class Carrito
     {
         decimal subtotal = Subtotal;
         decimal impuesto = 0;
+        decimal descuento = 0;
 
+        if (_servicioDescuento != null)
+            descuento = _servicioDescuento.CalcularDescuento(_items);
+        decimal descuentoAplicado = subtotal - descuento;
         if (_servicioImpuesto != null)
             impuesto = _servicioImpuesto.CalcularImpuesto(subtotal);
 
-        return subtotal + impuesto;
+        return descuentoAplicado + impuesto;
     }
 }

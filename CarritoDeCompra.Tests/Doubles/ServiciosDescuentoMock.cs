@@ -14,7 +14,7 @@ namespace ShoppingCart.Tests.Doubles
             _cantidadRetornar = cantidadRetornar;
         }
 
-        public decimal CalculateDiscount(IEnumerable<CarritoItem> items)
+        public decimal CalcularDescuento(IEnumerable<CarritoItem> items)
         {
             // Devuelve siempre el valor fijo que le configuramos
             return _cantidadRetornar;
