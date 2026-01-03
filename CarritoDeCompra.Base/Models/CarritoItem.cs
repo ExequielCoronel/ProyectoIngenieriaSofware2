@@ -18,8 +18,7 @@ namespace CarritoDeCompra.Base.Models
 
         public void EliminarCantindad(int cant)
         {
-            Cantidad -= cant;
-            if (Cantidad < 0) Cantidad = 0;
+            Cantidad = Math.Max(0, Cantidad - cant);
         }
 
     }

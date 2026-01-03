@@ -53,8 +53,11 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
     [Fact]
     public void EliminarItem_DeberiaEliminarItem()
     {
+        _carritoTest.EliminarItem("ABC123");// item que no existe
         _carritoTest.AgregarItem(_fixture.Manzana);
-        _carritoTest.EliminarItem(_fixture.Manzana.Codigo); // Método no existe
+        _carritoTest.EliminarItem(_fixture.Manzana.Codigo);        
+        _carritoTest.AgregarItem(_fixture.Pan,5);
+        _carritoTest.EliminarItem(_fixture.Pan.Codigo,10);
         Assert.Empty(_carritoTest.Items);
     }
 
