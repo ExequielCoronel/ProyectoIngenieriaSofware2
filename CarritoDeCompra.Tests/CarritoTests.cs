@@ -56,4 +56,5 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
         _carritoTest.EliminarItem(_fixture.Manzana.Codigo); // Método no existe
         Assert.Empty(_carritoTest.Items);
     }
+
 }

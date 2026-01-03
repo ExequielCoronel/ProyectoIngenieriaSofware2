@@ -16,5 +16,11 @@ namespace CarritoDeCompra.Base.Models
 
         public decimal PrecioTotal => Product.Precio * Cantidad;
 
+        public void EliminarCantindad(int cant)
+        {
+            Cantidad -= cant;
+            if (Cantidad < 0) Cantidad = 0;
+        }
+
     }
 }

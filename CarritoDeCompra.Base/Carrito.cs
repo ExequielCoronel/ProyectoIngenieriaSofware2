@@ -18,7 +18,17 @@ public void AgregarItem(Producto product, int cantidad = 1)
             _items.Add(new CarritoItem(product, cantidad));
         }
     }
+    public decimal Subtotal => _items.Sum(i => i.PrecioTotal);
 
-public decimal Subtotal => _items.Sum(i => i.PrecioTotal);
+    public void EliminarItem(string codigo, int cantidad = 1)
+    {
+        var itemExistente = _items.FirstOrDefault(i => i.Product.Codigo == codigo);
+        if (itemExistente == null) return;
 
+        itemExistente.EliminarCantindad(cantidad);
+        if (itemExistente.Cantidad <= 0)
+        {
+            _items.Remove(itemExistente);
+        }
+    }
 }
