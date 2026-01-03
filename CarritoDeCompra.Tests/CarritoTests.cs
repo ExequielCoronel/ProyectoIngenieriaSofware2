@@ -2,6 +2,7 @@
 using CarritoDeCompra.Base;
 using CarritoDeCompra.Base.Models;
 using CarritoDeCompra.Tests.Fixtures;
+using ShoppingCart.Tests.Doubles;
 
 public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
 {
@@ -48,13 +49,24 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
         Assert.Single(_carritoTest.Items);
         Assert.Equal(2, _carritoTest.Items[0].Cantidad); // carrito no tiene un campo que permita saber la cantidad, deberia tirar error de compilacion en red
     }
-
+    
     [Fact]
     public void EliminarItem_DeberiaEliminarItem()
     {
         _carritoTest.AgregarItem(_fixture.Manzana);
         _carritoTest.EliminarItem(_fixture.Manzana.Codigo); // Método no existe
         Assert.Empty(_carritoTest.Items);
+    }
+
+    [Fact]
+    public void _DeberiaUsarElStubImpuestos()
+    {
+        var StubImpuesto = new ServiciosImpuestosStub();
+        var Carrito = new Carrito(servicioImpuesto: StubImpuesto); // Constructor no acepta argumentos aún
+        Carrito.AgregarItem(_fixture.Manzana); // 100
+
+        // 100 + 10 (Stub) = 110
+        Assert.Equal(110m, Carrito.CalcularTotalFinal()); // Método no existe
     }
 
 }
