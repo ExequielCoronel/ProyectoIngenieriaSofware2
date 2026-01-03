@@ -1,5 +1,6 @@
 ﻿namespace CarritoDeCompra.Tests;
 using CarritoDeCompra.Base;
+using CarritoDeCompra.Base.Interfaces;
 using CarritoDeCompra.Base.Models;
 using CarritoDeCompra.Tests.Fixtures;
 using ShoppingCart.Tests.Doubles;
@@ -80,6 +81,17 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
         cart.AgregarItem(_fixture.Manzana); // Vale 100
         //aplicando descuento deberia devolver 100 - 50 = 50
         Assert.Equal(50m, cart.CalcularTotalFinal());
+    }
+
+    [Fact]
+    public void CalcularTotal_DeberiaAplicarDescuentoEImpuesto()
+    {
+        var StubImpuesto = new ServiciosImpuestosStub(); // Impuesto por defecto 10
+        var descuentoMock = new ServicioDescuentoMock(37m); // Descuenta 60
+        var cart = new Carrito(StubImpuesto, descuentoMock);
+        cart.AgregarItem(_fixture.Manzana); // Vale 100
+        //aplicando descuento deberia devolver 100 - 37 + 10 = 50
+        Assert.Equal(73m, cart.CalcularTotalFinal());
     }
 
 }
