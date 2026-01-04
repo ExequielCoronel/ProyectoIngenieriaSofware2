@@ -58,15 +58,18 @@ Refactor: Notamos que repetíamos la creación de productos (new Product(...)) e
  **RED**: Lanzamos el test sin haber implementado la interfase, ni el Mock correspondiente.
  **GREEN**: Desarrollamos la interfase `IServiciosDescuentos` y el Mock `ServicioDescuentoMocks` el mismo solo descuenta una cantidad fija pasada por parametro.
 
- -Iteracion 7: Modificacion Servicios de descuentos e impuestos
+ - Iteracion 7: Modificacion Servicios de descuentos e impuestos
  **Objetivo**: Por ultimo Se proveen de servicios de descuentos e impuestos reales tales como la logica del IVA `ServicioDeImpuestoEstandar` y el descuento 3x2 `ServicioDeDescuento3por2`. 
 
 Fuimos recolectando metricas de cobertura por medio del siguiente comando `dotnet test --collect:"XPlat Code Coverage"`, dichas metricas se encuentran en TestResults.
 
 ## Beneficios de Implementar TDD
-Al aplicar la tecnica Test Driven Development en este proyecto obtuvimos los siguientes beneficios: 
-- 
 
+Al aplicar la tecnica Test Driven Development en este proyecto obtuvimos los siguientes beneficios: 
+- **Obtención de documentacion** por medio de la creación de los test, es decir que los test en `CarritoTest.cs` dan documentacion sobre el funcionamiento del sistema. Ejemplo: si queremos saber el funcionamiento del sistema de impuestos basta con observar dicho test.
+- **Evolución de la arquitectura** no se implemento desde cero la inyeccion de dependencias al contrario, la necesidad de utilizacion de el Stub para probar el impuesto provoco la creación de la interfaz `IServiciosImpuestos` desacoplando al carrito de los impuestos.
+- **Errores Detectados de manera temprana** se cubrieron casos bordes como por ejemplo eliminar un item del carrito que no existe.
+- **Confianza en el cambio** En la iteración numero 3 se reescribio la logica de almacenamiento interna, evitando pruebas manuales extensas.
 
 ## Referencias
 - Beck, K. (2002). Test Driven Development: By Example. Addison-Wesley Professional.
