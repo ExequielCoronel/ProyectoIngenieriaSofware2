@@ -44,6 +44,7 @@ public class Carrito
             _items.Remove(itemExistente);
         }
     }
+
     public decimal CalcularTotalFinal()
     {
         decimal subtotal = Subtotal;
@@ -52,9 +53,13 @@ public class Carrito
 
         if (_servicioDescuento != null)
             descuento = _servicioDescuento.CalcularDescuento(_items);
-        decimal descuentoAplicado = subtotal - descuento;
+
+        decimal descuentoAplicado = subtotal - descuento; 
+
         if (_servicioImpuesto != null)
-            impuesto = _servicioImpuesto.CalcularImpuesto(subtotal);
+        {
+            impuesto = _servicioImpuesto.CalcularImpuesto(descuentoAplicado);
+        }
 
         return descuentoAplicado + impuesto;
     }

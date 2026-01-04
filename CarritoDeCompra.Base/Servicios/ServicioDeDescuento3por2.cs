@@ -3,7 +3,7 @@ using CarritoDeCompra.Base.Models;
 
 namespace CarritoDeCompra.Base.Servicios
 {
-    public class SevicioDeDescuento3por2 : IServiciosDescuentos
+    public class ServicioDeDescuento3por2 : IServiciosDescuentos
     {
         public decimal CalcularDescuento(IEnumerable<CarritoItem> items)
         {

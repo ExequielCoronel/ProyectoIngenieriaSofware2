@@ -2,6 +2,7 @@
 using CarritoDeCompra.Base;
 using CarritoDeCompra.Base.Interfaces;
 using CarritoDeCompra.Base.Models;
+using CarritoDeCompra.Base.Servicios;
 using CarritoDeCompra.Tests.Fixtures;
 using ShoppingCart.Tests.Doubles;
 
@@ -77,10 +78,10 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
     public void CalcularTotal_DeberiaAplicarDescuento()
     {
         var descuentoMock = new ServicioDescuentoMock(50m); // Descuenta 50
-        var cart = new Carrito(null, descuentoMock);
-        cart.AgregarItem(_fixture.Manzana); // Vale 100
+        var carrito = new Carrito(null, descuentoMock);
+        carrito.AgregarItem(_fixture.Manzana); // Vale 100
         //aplicando descuento deberia devolver 100 - 50 = 50
-        Assert.Equal(50m, cart.CalcularTotalFinal());
+        Assert.Equal(50m, carrito.CalcularTotalFinal());
     }
 
     [Fact]
@@ -88,10 +89,24 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
     {
         var StubImpuesto = new ServiciosImpuestosStub(); // Impuesto por defecto 10
         var descuentoMock = new ServicioDescuentoMock(37m); // Descuenta 60
-        var cart = new Carrito(StubImpuesto, descuentoMock);
-        cart.AgregarItem(_fixture.Manzana); // Vale 100
+        var carrito = new Carrito(StubImpuesto, descuentoMock);
+        carrito.AgregarItem(_fixture.Manzana); // Vale 100
         //aplicando descuento deberia devolver 100 - 37 + 10 = 50
-        Assert.Equal(73m, cart.CalcularTotalFinal());
+        Assert.Equal(73m, carrito.CalcularTotalFinal());
+    }
+
+
+    [Fact]
+    public void Control_EscenarioReal_DeberiaCalcularElTotalFinalConImpuestosYDescuentos()
+    {
+        var ServicioDeImpuestoReal = new ServicioDeImpuestoEstandar();
+        var ServicioDeDescuentoReal = new ServicioDeDescuento3por2();
+
+        var carrito = new Carrito(ServicioDeImpuestoReal, ServicioDeDescuentoReal);
+
+        carrito.AgregarItem(_fixture.Manzana, 3); 
+        var finalTotal = carrito.CalcularTotalFinal();
+        Assert.Equal(242m, finalTotal);
     }
 
 }
