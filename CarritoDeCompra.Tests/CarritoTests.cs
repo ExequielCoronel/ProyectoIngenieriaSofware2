@@ -91,7 +91,7 @@ public class CarritoTests : IClassFixture<ProductoFixture>, IDisposable
         var descuentoMock = new ServicioDescuentoMock(37m); // Descuenta 60
         var carrito = new Carrito(StubImpuesto, descuentoMock);
         carrito.AgregarItem(_fixture.Manzana); // Vale 100
-        //aplicando descuento deberia devolver 100 - 37 + 10 = 50
+        //aplicando descuento deberia devolver 100 - 37 + 10 = 73
         Assert.Equal(73m, carrito.CalcularTotalFinal());
     }
 

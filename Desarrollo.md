@@ -26,28 +26,47 @@ dotnet add ShoppingCart.Tests/ShoppingCart.Tests.csproj package coverlet.collect
 
 Se crearon las clases bases para el desarrollo
 - Iteracion 1: Agregar un item al carrito
-Objetivo: Establecer la configuración del proyecto (Solution, Core, Tests) y permitir la persistencia en memoria de productos.
-RED: se trabajo con ausencia de codigo (no se desarrollo el metodo que permitia agregar el item). 
-GREEN:Para lograr que se pase el test, se agrego un metodo util para la adhesion de items al carrito.
+**Objetivo**: Establecer la configuración del proyecto (Solution, Core, Tests) y permitir la persistencia en memoria de productos.
+**RED**: se trabajo con ausencia de codigo (no se desarrollo el metodo que permitia agregar el item). 
+**GREEN**:Para lograr que se pase el test, se agrego un metodo util para la adhesion de items al carrito.
 Como refactor, se protegio el acceso a la lista de productos.
 
 - Iteracion 2: Cálculo de subtotal simple y fixtures
-Objetivo: Implementar la sumatoria simple de precios.
-RED: Nuevaemente trabajamos en ausencia de codigo.
-GREEN: Implementamos el metodo que calcula el subtotal.
+**Objetivo**: Implementar la sumatoria simple de precios.
+**RED**: Nuevaemente trabajamos en ausencia de codigo.
+**GREEN**: Implementamos el metodo que calcula el subtotal.
 en la etapa red se trabajo con usencia de codigo, para pasar el test, se agrego un metodo que suma los precios de los items agregados a la lista.
 Refactor: Notamos que repetíamos la creación de productos (new Product(...)) en los tests, introdujimos un fixture (ProductoFixture). Esto mejora la mantenibilidad y reduce la duplicación de código en la suite de test
 
 - Iteracion 3: Refactorizacion estructural (Agrupacion por cantidad)
-Objetivo: Manejar cantidades de un mismo producto en lugar de tener objetos duplicados en la lista.
-RED: Producto no contaba con un campo de cantidad, para esto hacemos que el test intente acceder a un campo de cantidad de una lista todavia no definida.
-GREEN y Refactor: Se creo una clase intermedia "CarritoItem", esta encapsulaba el producto y la cantidad del mismo. Se modifico en clase carrito para que en vez de trabajar con una lista de productos, trabaje con una lista de items. Se modificó la lógica interna del metodo para Agregar un item demanera que busque ítems existentes y sume cantidades en lugar de agregar nuevas filas.
+**Objetivo**: Manejar cantidades de un mismo producto en lugar de tener objetos duplicados en la lista.
+**RED**: Producto no contaba con un campo de cantidad, para esto hacemos que el test intente acceder a un campo de cantidad de una lista todavia no definida.
+**GREEN** y Refactor: Se creo una clase intermedia "CarritoItem", esta encapsulaba el producto y la cantidad del mismo. Se modifico en clase carrito para que en vez de trabajar con una lista de productos, trabaje con una lista de items. Se modificó la lógica interna del metodo para Agregar un item demanera que busque ítems existentes y sume cantidades en lugar de agregar nuevas filas.
 
- - Iteracion 4: Eliminar un item del carrito
- Para encarar la fase red, invocamos la funcio de eliminar, aun no implementada. En la fase green, se desarrolla dicha funcion, controlando la existencia del item solicitado en la lista (se controlo solo que la cantidad llegue a 0). Para el refactor, se mejoro la funcion de eliminar haciendo uso de Math.Max, ademas que se testearon distintos escenarios (llegar a cantidad cero, cantidad negativa, etc).
+- Iteracion 4: Eliminar items del carrito
+**Objetivo**: Quitar una cantidad x de elementos del carrito de compras o directamente suprimir el item del carrito. 
+**RED** Lanzamos el test llamando a la funcion `EliminarItem()` aun no implementada en la clase carrito.
+**GREEN** Se implemento en la clase carrito la funcion `EliminarItem()`, donde el test paso con lo minimo implementado, controlando la existencia del item solicitado en la lista, eliminando el item del carrito si la cantidad a eliminar superaba a la existente en el carrito. Para el refactor, se mejoro la funcion de `EliminarCantidad()` de la clase `CarritoItem` haciendo uso de Math.Max, testeando distintos casos como: cantidad negativa, positiva y nula.
 
  - Iteracion 5: Servicio de impuestos
- En etapa red aplicamos metodos no existentes, en etapa green desarrollamos las funciones, de manera que los test sean exitosos (por defecto pusimos que la funcion de impuesto retorne un valor fijo). Se aplicaron interfaces e inyeccion de dependencias.
+ **Objetivo**: Calcular el impuesto sin acoplarlo al carrito utilizando interfaces `IServiciosImpuestos`, testeando haciendo uso de Stubs `ServiciosImpuestosStub`. 
+ **RED** Lanzamos el test sin haber implementado la interfase, ni el Stub correspondiente.
+ **GREEN** Desarrollamos la interfase `IServiciosImpuestos` y el Stub `ServiciosImpuestosStub`, de manera que los test sean exitosos (por defecto pusimos que la funcion de impuesto retorne un valor fijado en 10).
+
+ - Iteracion 6: Servicio de descuentos
+ **Objetivo**: Calcular el descuento sin acoplarlo al carrito utilizando interfaces `IServiciosDescuentos`, Donde para realizar el testeo utilizamos Mocks `ServiciosDescuentoMocks`.
+ **RED**: Lanzamos el test sin haber implementado la interfase, ni el Mock correspondiente.
+ **GREEN**: Desarrollamos la interfase `IServiciosDescuentos` y el Mock `ServicioDescuentoMocks` el mismo solo descuenta una cantidad fija pasada por parametro.
+
+ -Iteracion 7: Modificacion Servicios de descuentos e impuestos
+ **Objetivo**: Por ultimo Se proveen de servicios de descuentos e impuestos reales tales como la logica del IVA `ServicioDeImpuestoEstandar` y el descuento 3x2 `ServicioDeDescuento3por2`. 
+
+Fuimos recolectando metricas de cobertura por medio del siguiente comando `dotnet test --collect:"XPlat Code Coverage"`, dichas metricas se encuentran en TestResults.
+
+## Beneficios de Implementar TDD
+Al aplicar la tecnica Test Driven Development en este proyecto obtuvimos los siguientes beneficios: 
+- 
+
 
 ## Referencias
 - Beck, K. (2002). Test Driven Development: By Example. Addison-Wesley Professional.
