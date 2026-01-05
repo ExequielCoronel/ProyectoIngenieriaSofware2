@@ -71,6 +71,15 @@ Al aplicar la tecnica Test Driven Development en este proyecto obtuvimos los sig
 - **Errores Detectados de manera temprana** se cubrieron casos bordes como por ejemplo eliminar un item del carrito que no existe.
 - **Confianza en el cambio** En la iteración numero 3 se reescribio la logica de almacenamiento interna, evitando pruebas manuales extensas.
 
+## Desafios y consideraciones
+- Dificultad a la hora de escribir el test en fase RED antes de implementar la solucion es ir en contra a la forma en la que estamos acostumbrados a programar, esto provoco un inicio de proyecto lento conteniendo los impulsos de saltar directamente a la implementación.
+
+- Al utiizar Mock se complico en cuanto a la configuracion de la inyeccion de dependencias en el construcctor del test.
+
+- Un test mal escrito puedo pasar sin probar realmente la logica, por lo tanto es muy importante revisar el acierto del mismo. 
+
+- **Consideración** Si bien en las metricas de coberturas procuramos obtener 100% esto no garantiza la ausencia de bugs, pero estamos seguros de que la falta de tests provoca deuda tecnica. Por lo tanto debemos testear el comportamiento y las reglas de negocio criticas. 
+
 ## Referencias
 - Beck, K. (2002). Test Driven Development: By Example. Addison-Wesley Professional.
 
