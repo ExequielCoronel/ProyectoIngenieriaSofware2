@@ -10,7 +10,7 @@
 ### Objetivos del trabajo:
 
 #### Principal: 
-- Demostrar en la práctica cómo TDD utilizando el ciclo Red-Green-Refactor influye en la arquitectura y robustez del código mediante la construcción incremental de un módulo de software.
+- Mostrar en la práctica cómo TDD utilizando el ciclo Red-Green-Refactor para este tipo de proyecto influye positivamente en la arquitectura y robustez del código.
 
 #### Específicos:
 - Ejecutar el ciclo de TDD en al menos 7 iteraciones funcionales.
