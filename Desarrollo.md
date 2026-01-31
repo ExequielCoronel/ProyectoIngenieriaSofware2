@@ -2,9 +2,31 @@
 En el contexto actual de la ingeniería de software, la calidad y mantenibilidad del código son críticas. Este trabajo se centra en Test Driven Development (TDD), una metodología donde las pruebas unitarias guían el diseño del software antes de la implementación.
 El objetivo principal es demostrar de manera práctica el ciclo Red-Green-Refactor: escribir un test que falla, implementar el código mínimo para que pase, y refactorizar. Utilizaremos el ecosistema .NET (C#) y el framework xUnit para construir un módulo de "Carrito de Compras".
 Veremos cómo esta práctica influye directamente en:
-- La Arquitectura: Fomentando el desacoplamiento mediante la Inversión de Dependencias.
-- La Robustez: Asegurando la validación de invariantes y lógica de negocio
+- **La Arquitectura**: Fomentando el desacoplamiento mediante la Inversión de Dependencias.
+- **La Robustez**: Asegurando la validación de invariantes y lógica de negocio
 Para medir la robustez, utilizamos métricas de Cobertura de Código (Code Coverage) con la herramienta coverlet, buscando un porcentaje elevado para asegurar que todas las ramas lógicas (incluyendo casos de borde y manejo de nulos) estén validadas. Los referentes teóricos principales de esta técnica incluyen a Kent Beck (creador de XP) y Robert C. Martin, quienes sostienen que TDD es, ante todo, una técnica de diseño.
+
+## Requisitos y dependencias
+Requisitos y dependencias para ejecutar el sistema:
+- **.NET SDK** Versión 9.0
+- **xunit (2.4.2)**: Framework de pruebas unitarias.
+- **xunit.runner.visualstudio**: Ejecutor de pruebas para la integración con el CLI de .NET.
+- **coverlet.collector** (Version 3.2.0)
+
+## Secuencia de comandos para levantar y ejecutar  el sistema :
+1. Clonar el repositorio: **git clone https://github.com/ExequielCoronel/ProyectoIngenieriaSofware2.git**
+(luego movernos a la carpeta de trabajo)
+2. Restaurar dependencias: **dotnet restore** (este descarga e instala los paquetes NuGet listados anteriormente, no es estrictamente necesario utilizar este comando)
+3. Compilar la solución: **dotnet build** (verifica que no existan errores de sintaxis en el código base, no es estrictamente necesario utilizar este comando)
+
+### Ejecucion depruebas
+Dado que este proyecto es una Biblioteca de Clases desarrollada bajo la metodología TDD, la "ejecución" y la validación del sistema se realizan a través de la **suite** de pruebas automatizadas que valida todas las iteraciones.
+
+Para ejecutar todos los tests y ver el estado (Passed/Failed) aplicamos el siguiente comando:
+**dotnet test**
+
+Para validar la robustez del código, se debe ejecutar el siguiente comando que analiza qué porcentaje del código es cubierto por las pruebas:
+**dotnet test --collect:"XPlat Code Coverage**
 
 ## Desarrollo Practico:
 El desarrollo se llevó a cabo en 7 iteraciones incrementales, cada una abordando un requisito funcional y un desafío técnico específico.
@@ -19,17 +41,17 @@ Para reproducir esta experiencia, se utilizo el SDK de .NET 9.0.
 
 dotnet new sln
 
-dotnet new classlib -o CarritodDeCompra.Base
+dotnet new classlib -o CarritoDeCompra.Base
 
 dotnet new xunit -o CarritoDeCompra.Tests
 
-dotnet sln add  CarritodDeCompra.Base/CarritodDeCompra.Base.csproj
+dotnet sln add  CarritoDeCompra.Base/CarritoDeCompra.Base.csproj
 
-dotnet sln add  CarritodDeCompra.Tests/CarritodDeCompra.Tests.csproj
+dotnet sln add  CarritoDeCompra.Tests/CarritoDeCompra.Tests.csproj
 
-dotnet add  CarritodDeCompra.Tests/CarritodDeCompra.Tests.csproj reference CarritodDeCompra.Base/CarritodDeCompra.Base.csproj
+dotnet add  CarritoDeCompra.Tests/CarritoDeCompra.Tests.csproj reference CarritoDeCompra.Base/CarritoDeCompra.Base.csproj
 
-dotnet add  CarritodDeCompra.Tests/CarritodDeCompra.Test.csproj package coverlet.collector
+dotnet add  CarritoDeCompra.Tests/CarritoDeCompra.Tests.csproj package coverlet.collector
 
 Se crearon las clases bases para el desarrollo
 - Iteracion 1: Agregar un item al carrito
@@ -99,13 +121,13 @@ Al aplicar la tecnica Test Driven Development en este proyecto obtuvimos los sig
 - **Confianza en el cambio** En la iteración numero 3 se reescribio la logica de almacenamiento interna, evitando pruebas manuales extensas.
 
 ## Desafios y consideraciones
-- Dificultad a la hora de escribir el test en fase RED antes de implementar la solucion es ir en contra a la forma en la que estamos acostumbrados a programar, esto provoco un inicio de proyecto lento conteniendo los impulsos de saltar directamente a la implementación.
+- **Curva de aprendizaje**: La dificultad a la hora de escribir el test en fase RED antes de implementar la solución va en contra de la forma en la que estamos acostumbrados a programar. Esto provocó un inicio de proyecto más lento, requiriendo disciplina para contener el impulso de saltar directamente a la implementación.
 
-- Al utiizar Mock se complico en cuanto a la configuracion de la inyeccion de dependencias en el construcctor del test.
+- **Complejidad tectina**: Al utiizar Mock se complico en cuanto a la configuracion de la inyeccion de dependencias en el construcctor del test.
 
-- Un test mal escrito puedo pasar sin probar realmente la logica, por lo tanto es muy importante revisar el acierto del mismo. 
+- **Calidad de los tests**: Un test mal escrito puedo pasar sin probar realmente la logica, por lo tanto es muy importante revisar el acierto del mismo. 
 
-- **Consideración** Si bien en las metricas de coberturas procuramos obtener 100% esto no garantiza la ausencia de bugs, pero estamos seguros de que la falta de tests provoca deuda tecnica. Por lo tanto debemos testear el comportamiento y las reglas de negocio criticas.
+- **Consideración (cobertura vs calidad)**: Si bien en las metricas de coberturas procuramos obtener 100% esto no garantiza la ausencia de bugs, estamos seguros de que la falta de tests provoca deuda tecnica, por lo tanto debemos testear el comportamiento y las reglas de negocio criticas.
 
 ## Conclusion
 Al finalizar el desarrollo del carrito, notamos el cambio de mentalidad que exige el TDD. Al principio, escribir un test para una funcionalidad que aún no existía parecía contraintuitivo y sentíamos ralentizaba el avance. Sin embargo, a medida que se avanzaba en las iteraciones, notamos que esa "lentitud" inicial se traducía en una mayor velocidad y confianza para detectar errores.
@@ -116,5 +138,6 @@ Un punto clave fue la iteración de los impuestos: la necesidad de testear esa l
 - Beck, K. (2002). Test Driven Development: By Example. Addison-Wesley Professional.
 
 - xUnit.net. (2025). Documentation. https://xunit.net/
+
 
 
