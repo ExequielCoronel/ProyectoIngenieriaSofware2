@@ -16,19 +16,20 @@ Para reproducir esta experiencia, se utilizo el SDK de .NET 9.0.
 - Gestión de Versiones: Git (Commits semánticos por iteración).
 
 - Primero creamos la estructura de trabajo.
+
 dotnet new sln
 
-dotnet new classlib -o ShoppingCart.Core
+dotnet new classlib -o CarritodDeCompra.Base
 
-dotnet new xunit -o ShoppingCart.Tests
+dotnet new xunit -o CarritoDeCompra.Tests
 
-dotnet sln add ShoppingCart.Core/ShoppingCart.Core.csproj
+dotnet sln add  CarritodDeCompra.Base/CarritodDeCompra.Base.csproj
 
-dotnet sln add ShoppingCart.Tests/ShoppingCart.Tests.csproj
+dotnet sln add  CarritodDeCompra.Tests/CarritodDeCompra.Tests.csproj
 
-dotnet add ShoppingCart.Tests/ShoppingCart.Tests.csproj reference ShoppingCart.Core/ShoppingCart.Core.csproj
+dotnet add  CarritodDeCompra.Tests/CarritodDeCompra.Tests.csproj reference CarritodDeCompra.Base/CarritodDeCompra.Base.csproj
 
-dotnet add ShoppingCart.Tests/ShoppingCart.Tests.csproj package coverlet.collector
+dotnet add  CarritodDeCompra.Tests/CarritodDeCompra.Test.csproj package coverlet.collector
 
 Se crearon las clases bases para el desarrollo
 - Iteracion 1: Agregar un item al carrito
@@ -115,4 +116,5 @@ Un punto clave fue la iteración de los impuestos: la necesidad de testear esa l
 - Beck, K. (2002). Test Driven Development: By Example. Addison-Wesley Professional.
 
 - xUnit.net. (2025). Documentation. https://xunit.net/
+
 
